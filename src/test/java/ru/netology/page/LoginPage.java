@@ -3,17 +3,25 @@ package ru.netology.page;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
 
-class LoginPage {
-    public void login(DataHelper.AuthInfo info) {
-    private SelenideElement loginField = $("[data-test-id=login] input");
-    private SelenideElement passwordField = $("[data-test-id=password] input");
-    private SelenideElement loginButton = $("[data-test-id=action-login]");
 
-    public VerificationPage validLogin (DataHelper.AuthInfo info) {
-        loginField.setValue(info.getLogin());
-        passwordField.setValue(info.getPassword());
+public class LoginPage {
+
+    private SelenideElement loginInput = $x("//span[@data-test-id='login']//input");
+    private SelenideElement passwordInput = $x("//span[@data-test-id='password']//input");
+    private SelenideElement loginButton = $x("//button[@data-test-id='action-login']//span[@class='button__text']");
+
+    public LoginPage() {
+        loginInput.should(visible);
+        passwordInput.should(visible);
+        loginButton.should(visible);
+    }
+
+    public VerificationPage login(DataHelper.UserInfo info) {
+        loginInput.val(info.getLogin());
+        passwordInput.val(info.getPassword());
         loginButton.click();
         return new VerificationPage();
     }
