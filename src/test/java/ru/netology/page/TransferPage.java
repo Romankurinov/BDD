@@ -17,11 +17,11 @@ public class TransferPage {
     private SelenideElement errorNotification = $x("//div[@data-test-id='error-notification']");
     private SelenideElement errorButton = $x("//div[@data-test-id='error-notification']/button");
 
-    public static void transferMoney(int amount, DataHelper.CardInfo from) {
+    public static DashboardPage transferMoney(int amount, DataHelper.CardInfo from) {
         amountInput.val(valueOf(amount));
         formInput.setValue(valueOf(from));
         transferButton.click();
-        new DashboardPage();
+        return new DashboardPage();
     }
 
     public static void errorLimit() {
